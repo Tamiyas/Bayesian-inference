@@ -14,6 +14,12 @@ class Data:
       y_vec.extend(np.random.normal(self.x_vec[idx], sigma ** 2, num))
     return y_vec
 
+  def getXVec(self):
+    return self.x_vec
+
+  def getYVec(self):
+    return self.y_vec
+
   def Pr_X1(self, x1):
     """X1の周辺確率を求める
     """
