@@ -7,11 +7,12 @@ class Data:
     self.x_vec = np.random.randint(0, 2, len(n))  # 0 or 1 のリストを作成
     self.y_vec = self.createYData(sigma, n)
     self.prob  = [[0.6, 0.1], [0.1, 0.2]]
-
+    self.n_list= n
+    
   def createYData(self, sigma, n):
     y_vec = []
     for (idx, num) in enumerate(n):
-      y_vec.extend(np.random.normal(self.x_vec[idx], sigma ** 2, num))
+      y_vec.extend([np.random.normal(self.x_vec[idx], sigma ** 2, num)])
     return y_vec
 
   def getXVec(self):
@@ -19,6 +20,9 @@ class Data:
 
   def getYVec(self):
     return self.y_vec
+
+  def getNList(self):
+    return self.n_list
 
   def Pr(self, x1, x2):
     return self.prob[x1][x2]
@@ -41,3 +45,6 @@ class Data:
 
 if __name__ == '__main__':
   data = Data()
+  y_vec = data.getYVec()
+  print(y_vec)
+  print(y_vec[0][1])
