@@ -4,11 +4,23 @@ import numpy as np
 
 class Data:
   def __init__(self, n = [3, 3], sigma = 1.0):
-    self.x_vec = np.random.randint(0, 2, len(n))  # 0 or 1 のリストを作成
-    self.y_vec = self.createYData(sigma, n)
     self.prob  = [[0.6, 0.1], [0.1, 0.2]]
     self.n_list= n
+    self.x_vec = self.createXData()
+    self.y_vec = self.createYData(sigma, n)
+
+  def createXData(self):
+    random = np.random.rand()
+    if 0.0 <= random and random < 0.6:
+      return [0, 0]
+    if 0.6 <= random and random < 0.7:
+      return [0, 1]
+    if 0.7 <= random and random < 0.8:
+      return [1, 0]
+    if 0.8 <= random and random < 1.0:
+      return [1, 1]
     
+
   def createYData(self, sigma, n):
     y_vec = []
     for (idx, num) in enumerate(n):

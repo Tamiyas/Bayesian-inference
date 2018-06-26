@@ -19,12 +19,12 @@ class Statistics:
 
   def N(self, x1, x2):
     w = 0
-    x_vec = data.getXVec()
+    x_vec = [x1, x2]
     y_vec = data.getYVec()
     n_list= data.getNList()
     for i in range(0, 2):
       for j in range(0, n_list[i]):
-        w += (1 - 2 * y_vec[i][j] + 2 * y_vec[i][j] * x_vec[i]) / data.Pr(1, 1)
+        w += (1 - 2 * y_vec[i][j] + 2 * y_vec[i][j] * x_vec[i] - x_vec[i] ** 2) / data.Pr(1, 1)
     return w
 
 if __name__ == '__main__':
