@@ -20,6 +20,9 @@ class Data:
   def getYVec(self):
     return self.y_vec
 
+  def Pr(self, x1, x2):
+    return self.prob[x1][x2]
+
   def Pr_X1(self, x1):
     """X1の周辺確率を求める
     """
