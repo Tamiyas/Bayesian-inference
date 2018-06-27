@@ -27,6 +27,9 @@ class SG:
         w += (1 - 2 * y_vec[i][j] + 2 * y_vec[i][j] * x_vec[i] - x_vec[i] ** 2) / self.data.Pr(1, 1)
     return w
 
+  def getData(self):
+    return self.data
+
 class ST:
   def __init__(self, data):
     self.data = data
@@ -45,6 +48,8 @@ class ST:
         w += (1 - 2 * y_vec[i][j]) / 2
     return w
 
+  def getData(self):
+    return self.data
 
 class SP:
   def __init__(self, data):
@@ -67,6 +72,9 @@ class SP:
     for j in range(n_list[idx]):
       w += (1 - 2 * y_vec[idx][j]) / 2
     return w
+
+  def getData(self):
+    return self.data
 
 if __name__ == '__main__':
   data = Data()
