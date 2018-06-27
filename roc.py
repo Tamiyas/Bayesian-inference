@@ -6,6 +6,7 @@ from statistics import SG
 from statistics import ST
 from statistics import SP
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 
 class ROC:
   def __init__(self, method = 'SG'):
@@ -20,39 +21,54 @@ class ROC:
       return SP(data)
     return SG(data)
 
-  def plotCurve(self):
+  def plotCurve(self, c = 'blue', l = 'Data'):
     FPR_list = []
     CDR_list = []
-    for theta in range(0, 100):
+    n = {}
+    for theta in tqdm(range(0, 100000)):
       thresh = theta * 0.01
-      n_FP  = 0
-      n_CD  = 0
-      n_x11 = 0
+      n['x11']  = 0
+      n['!x11'] = 0
+      n['FP']   = 0
+      n['CD']   = 0
 
-      for alpha in range(0, 100000):
+      for alpha in tqdm(range(0, 100)):
         stat = self.buildStat(Data())
-        self.recognition(stat, thresh, n_FP, n_CD, n_x11)
-      FPR_list.append(self.FPR(n_FP, n_x11))
-      CDR_list.append(self.CDR(n_FP, n_x11))
-    plt.plot(FPR_list, CDR_list)
+        self.recognition(stat, thresh, n)
+      FPR_list.append(self.FPR(n))
+      CDR_list.append(self.CDR(n))
+    plt.plot(FPR_list, CDR_list, color = c, lw = 0.8, label = l)
+    plt.xlim(0.0, 1.0)
+    plt.ylim(0.0, 1.0)
+    plt.legend(loc="lower right")
+    plt.savefig('ROC_curve.pdf')
+
+  def plotCurveAll(self):
+    method_list = ['SG', 'ST', 'SP']
+    color_list  = ['black', 'tomato', 'deepskyblue']
+    for idx, method in enumerate(method_list):
+      self.method = method
+      self.plotCurve(c = color_list[idx], l = method)
+
     plt.show()
 
-
-  def recognition(self, stat, thresh, n_FP, n_CD, n_x11):
+  def recognition(self, stat, thresh, n):
     result = stat.statistics() > thresh
     x_vec = stat.getData().getXVec()
     if x_vec == [1, 1]:
-      n_x11 += 1
-      n_CD  += 1 if result == True else 0
+      n['x11'] += 1
+      n['CD']  += 1 if result == True else 0
     else:
-      n_FP += 1 if result == True else 0
+      n['!x11'] += 1
+      n['FP'] += 1 if result == True else 0
 
-  def FPR(self, n_FP, n_x11):
-    return n_FP / n_x11
+  def FPR(self, n):
+    return n['FP'] / n['!x11']
 
-  def CDR(self, n_CD, n_x11):
-    return n_CD / n_x11
+  def CDR(self, n):
+    return n['CD'] / n['x11']
 
 if __name__ == '__main__':
   curve = ROC('SG')
-  curve.plotCurve()
+  curve = ROC('ST')
+  curve.plotCurveAll()

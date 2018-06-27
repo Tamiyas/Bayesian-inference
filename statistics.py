@@ -5,7 +5,8 @@ from data import Data
 
 class SG:
   def __init__(self, data):
-    self.data = data
+    self.data  = data
+    self.sigma = data.getSigma()
 
   def statistics(self):
     return 1 / self.h_G()
@@ -15,7 +16,7 @@ class SG:
     for x1 in range(0, 2):
       for x2 in range(0, 2):
         h += self.data.Pr(x1, x2) * np.exp(self.N(x1, x2))
-    return h
+    return h / self.data.Pr(1, 1)
 
   def N(self, x1, x2):
     w = 0
@@ -24,7 +25,7 @@ class SG:
     n_list= self.data.getNList()
     for i in range(0, 2):
       for j in range(0, n_list[i]):
-        w += (1 - 2 * y_vec[i][j] + 2 * y_vec[i][j] * x_vec[i] - x_vec[i] ** 2) / self.data.Pr(1, 1)
+        w += (1 - 2 * y_vec[i][j] + 2 * y_vec[i][j] * x_vec[i] - x_vec[i] ** 2) / (2 * self.sigma ** 2)
     return w
 
   def getData(self):
@@ -33,6 +34,7 @@ class SG:
 class ST:
   def __init__(self, data):
     self.data = data
+    self.sigma = data.getSigma()
 
   def statistics(self):
     return 1 / self.h_T()
@@ -45,7 +47,7 @@ class ST:
     w = 0
     for i in range(0, 2):
       for j in range(0, 3):
-        w += (1 - 2 * y_vec[i][j]) / 2
+        w += (1 - 2 * y_vec[i][j]) / (2 * self.sigma ** 2)
     return w
 
   def getData(self):
@@ -54,6 +56,7 @@ class ST:
 class SP:
   def __init__(self, data):
     self.data = data
+    self.sigma = data.getSigma()
 
   def statistics(self):
     return 1 / (self.PrX1GivenY1() * self.PrX2GivenY2())
@@ -70,7 +73,7 @@ class SP:
     w = 0
     y_vec = self.data.getYVec()
     for j in range(n_list[idx]):
-      w += (1 - 2 * y_vec[idx][j]) / 2
+      w += (1 - 2 * y_vec[idx][j]) / (2 ** self.sigma ** 2)
     return w
 
   def getData(self):

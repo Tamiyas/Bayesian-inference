@@ -5,9 +5,10 @@ import numpy as np
 class Data:
   def __init__(self, n = [3, 3], sigma = 1.0):
     self.prob  = [[0.6, 0.1], [0.1, 0.2]]
+    self.sigma = sigma
     self.n_list= n
     self.x_vec = self.createXData()
-    self.y_vec = self.createYData(sigma, n)
+    self.y_vec = self.createYData()
 
   def createXData(self):
     random = np.random.rand()
@@ -19,12 +20,12 @@ class Data:
       return [1, 0]
     if 0.8 <= random and random < 1.0:
       return [1, 1]
-    
 
-  def createYData(self, sigma, n):
+
+  def createYData(self):
     y_vec = []
-    for (idx, num) in enumerate(n):
-      y_vec.extend([np.random.normal(self.x_vec[idx], sigma ** 2, num)])
+    for (idx, num) in enumerate(self.n_list):
+      y_vec.extend([np.random.normal(self.x_vec[idx], self.sigma ** 2, num)])
     return y_vec
 
   def getXVec(self):
@@ -35,6 +36,9 @@ class Data:
 
   def getNList(self):
     return self.n_list
+
+  def getSigma(self):
+    return self.sigma
 
   def Pr(self, x1, x2):
     return self.prob[x1][x2]
