@@ -73,7 +73,7 @@ class SP:
     w = 0
     y_vec = self.data.getYVec()
     for j in range(n_list[idx]):
-      w += (1 - 2 * y_vec[idx][j]) / (2 ** self.sigma ** 2)
+      w += (1 - 2 * y_vec[idx][j]) / (2 * self.sigma ** 2)
     return w
 
   def getData(self):

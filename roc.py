@@ -25,14 +25,14 @@ class ROC:
     FPR_list = []
     CDR_list = []
     n = {}
-    for theta in tqdm(range(0, 100000)):
+    for theta in tqdm(range(0, 101)):
       thresh = theta * 0.01
       n['x11']  = 0
       n['!x11'] = 0
       n['FP']   = 0
       n['CD']   = 0
 
-      for alpha in tqdm(range(0, 100)):
+      for alpha in tqdm(range(0, 100000)):
         stat = self.buildStat(Data())
         self.recognition(stat, thresh, n)
       FPR_list.append(self.FPR(n))
@@ -70,5 +70,4 @@ class ROC:
 
 if __name__ == '__main__':
   curve = ROC('SG')
-  curve = ROC('ST')
   curve.plotCurveAll()
