@@ -28,6 +28,9 @@ class SG:
         w += (1 - 2 * y_vec[i][j] + 2 * y_vec[i][j] * x_vec[i] - x_vec[i] ** 2) / (2 * self.sigma[i] ** 2)
     return w
 
+  def reset(self):
+    self.data.reset()
+
 class ST:
   def __init__(self, data):
     self.data = data
@@ -47,6 +50,8 @@ class ST:
         w += (1 - 2 * y_vec[i][j]) / (2 * self.sigma[i] ** 2)
     return w
 
+  def reset(self):
+    self.data.reset()
 
 class SP:
   def __init__(self, data):
@@ -68,8 +73,11 @@ class SP:
     w = 0
     y_vec = self.data.y_vec
     for j in range(n_list[idx]):
-      w += (1 - 2 * y_vec[idx][j]) / (2 * self.sigma[i] ** 2)
+      w += (1 - 2 * y_vec[idx][j]) / (2 * self.sigma[idx] ** 2)
     return w
+
+  def reset(self):
+    self.data.reset()
 
 if __name__ == '__main__':
   data = Data()

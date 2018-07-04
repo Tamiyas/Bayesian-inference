@@ -47,8 +47,12 @@ class Data:
       prob += self.prob[x1][x2]
     return prob
 
+  def reset(self):
+    self.x_vec = self.createXData()
+    self.y_vec = self.createYData()
+
 if __name__ == '__main__':
   data = Data()
-  y_vec = data.y_vec
-  print(y_vec)
-  print(y_vec[0][1])
+  print(data.y_vec)
+  data.reset()
+  print(data.y_vec)
