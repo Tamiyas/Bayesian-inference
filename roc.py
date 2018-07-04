@@ -54,7 +54,7 @@ class ROC:
 
   def recognition(self, stat, thresh, n):
     result = stat.statistics() > thresh
-    x_vec = stat.getData().getXVec()
+    x_vec = stat.data.x_vec
     if x_vec == [1, 1]:
       n['x11'] += 1
       n['CD']  += 1 if result == True else 0

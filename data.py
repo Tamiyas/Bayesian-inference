@@ -28,18 +28,6 @@ class Data:
       y_vec.extend([np.random.normal(self.x_vec[idx], self.sigma ** 2, num)])
     return y_vec
 
-  def getXVec(self):
-    return self.x_vec
-
-  def getYVec(self):
-    return self.y_vec
-
-  def getNList(self):
-    return self.n_list
-
-  def getSigma(self):
-    return self.sigma
-
   def Pr(self, x1, x2):
     return self.prob[x1][x2]
 
@@ -61,6 +49,6 @@ class Data:
 
 if __name__ == '__main__':
   data = Data()
-  y_vec = data.getYVec()
+  y_vec = data.y_vec
   print(y_vec)
   print(y_vec[0][1])
