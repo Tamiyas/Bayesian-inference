@@ -3,7 +3,7 @@
 import numpy as np
 
 class Data:
-  def __init__(self, n = [3, 3], sigma = 1.0):
+  def __init__(self, n = (3, 3), sigma = (1.0, 1.0)):
     self.prob  = [[0.6, 0.1], [0.1, 0.2]]
     self.sigma = sigma
     self.n_list= n
@@ -25,7 +25,7 @@ class Data:
   def createYData(self):
     y_vec = []
     for (idx, num) in enumerate(self.n_list):
-      y_vec.extend([np.random.normal(self.x_vec[idx], self.sigma ** 2, num)])
+      y_vec.extend([np.random.normal(self.x_vec[idx], self.sigma[idx] ** 2, num)])
     return y_vec
 
   def Pr(self, x1, x2):

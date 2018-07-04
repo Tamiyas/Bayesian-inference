@@ -25,7 +25,7 @@ class SG:
     n_list= self.data.n_list
     for i in range(0, 2):
       for j in range(0, n_list[i]):
-        w += (1 - 2 * y_vec[i][j] + 2 * y_vec[i][j] * x_vec[i] - x_vec[i] ** 2) / (2 * self.sigma ** 2)
+        w += (1 - 2 * y_vec[i][j] + 2 * y_vec[i][j] * x_vec[i] - x_vec[i] ** 2) / (2 * self.sigma[i] ** 2)
     return w
 
 class ST:
@@ -44,7 +44,7 @@ class ST:
     w = 0
     for i in range(0, 2):
       for j in range(0, 3):
-        w += (1 - 2 * y_vec[i][j]) / (2 * self.sigma ** 2)
+        w += (1 - 2 * y_vec[i][j]) / (2 * self.sigma[i] ** 2)
     return w
 
 
@@ -68,7 +68,7 @@ class SP:
     w = 0
     y_vec = self.data.y_vec
     for j in range(n_list[idx]):
-      w += (1 - 2 * y_vec[idx][j]) / (2 * self.sigma ** 2)
+      w += (1 - 2 * y_vec[idx][j]) / (2 * self.sigma[i] ** 2)
     return w
 
 if __name__ == '__main__':
